@@ -12,6 +12,10 @@
     --font-text:"Noto Sans";
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /*******************HEADER****************/
 
 header {
@@ -68,6 +72,8 @@ header ul li a img {
     margin: 100px;
 }
 
+
+
 .landing-page-im img {
     margin-left: 500px;
     width: 20rem;
@@ -94,7 +100,9 @@ header ul li a img {
 
 }
 
-.boton-base {
+
+
+.boton-LP1 {
     display: inline-block;
     padding: 12px 40px;  
     margin: 10px;       
@@ -105,12 +113,27 @@ header ul li a img {
     text-align: center;
     transition: 0.3s;
     cursor: pointer;
-}
-
-.boton-LP1 {
     background-color: var(--color-principal);
     color: #FFFFFF;
     border: 2px solid var(--color-principal);
+}
+
+
+.boton-LP2 {
+    background-color: transparent;
+    color: var(--color-principal);
+    border: 2px solid var(--color-principal);
+    display: inline-block;
+    padding: 12px 40px;  
+    margin: 10px;       
+    text-decoration: none;
+    font-family: var(--font-title);
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+    
 }
 
 .boton-LP1:hover {
@@ -118,17 +141,15 @@ header ul li a img {
     border-color: #a00000;
 }
 
-.boton-LP2 {
-    background-color: transparent;
-    color: var(--color-principal);
-    border: 2px solid var(--color-principal);
-}
-
 .boton-LP2:hover {
-    background-color: var(--color-principal);
-    color: #FFFFFF;
+    background-color: #dddddd;
 }
 
+@media (max-width: 1500px) {
+    .landing-page-im {
+        display: none;
+    }
+}
 
 /*******************LANDING PAGE****************/
     
@@ -148,11 +169,25 @@ header ul li a img {
 }
 
 .peliculas-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 0 5rem;
 }
+
+@media (max-width: 1280px) {
+.peliculas-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .peliculas-container {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .pelicula {
     background-color: var(--color-light);
@@ -212,10 +247,23 @@ header ul li a img {
 
 
 .series-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 0 5rem;
+}
+
+@media (max-width: 1280px) {
+  .series-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .series-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .serie {
