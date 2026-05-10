@@ -5,4 +5,4 @@ Alumna: Agustina Da Cruz Calca <br><br>
 
 ## Proyecto de la Materia 
 Pósters de Cine (PostWatch)
-Descripción: E-Commerce para pósters de películas y Series
+Descripción: E-Commerce para pósters de películas y series
