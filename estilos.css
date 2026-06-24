@@ -81,7 +81,8 @@ header ul li button img {
     top: 0;
     left: 0;
     bottom: 0;
-    background-color: var(--color-dark);
+    background-color: var(--color-light);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     width: 50%;
     height: 100%;
     transform: translateX(-100%) translateY(0%);
@@ -179,7 +180,7 @@ header ul li button img {
 
 
 
-.boton-LP1 {
+.boton-LP {
     display: inline-block;
     padding: 12px 40px;  
     margin: 10px;       
@@ -196,31 +197,11 @@ header ul li button img {
 }
 
 
-.boton-LP2 {
-    background-color: transparent;
-    color: var(--color-principal);
-    border: 2px solid var(--color-principal);
-    display: inline-block;
-    padding: 12px 40px;  
-    margin: 10px;       
-    text-decoration: none;
-    font-family: var(--font-title);
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    transition: 0.3s;
-    cursor: pointer;
-    
-}
-
-.boton-LP1:hover {
+.boton-LP:hover {
     background-color: #a00000; 
     border-color: #a00000;
 }
 
-.boton-LP2:hover {
-    background-color: #dddddd;
-}
 
 @media (max-width: 1500px) {
     .landing-page-im {
@@ -247,10 +228,12 @@ header ul li button img {
 
 .peliculas-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 280px));
+    justify-content: center;
     grid-template-rows: auto;
-    gap: 20px;
-    padding: 0 5rem;
+    column-gap: 20px;
+    padding: 0 1rem;
+    max-width: 100%;
 }
 
 @media (max-width: 1280px) {
@@ -272,10 +255,11 @@ header ul li button img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
+    margin: 10px 0;
     border-radius: 20px;
     padding: 20px 50px;
     width: 280px;
+    max-width: 100%;
 }
 
 .pelicula h2 {
@@ -358,7 +342,7 @@ header ul li button img {
     width: 200px;
     height: 300px;
     object-fit: cover;
-    margin: 10px;
+    margin: 0px;
     transition: transform 0.3s ease;
 }
 
@@ -376,9 +360,14 @@ header ul li button img {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
+    width: 100%;
 }
 
 .btn-detalle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--color-principal);
     text-decoration: none;
     color: var(--color-light);
@@ -389,22 +378,46 @@ header ul li button img {
     cursor: pointer;
     font-family: var(--font-text);
     font-weight: 800;
-    margin-top: 10px;
+    min-height: 40px;
+    margin-right: 10px;
+}
+
+.btn-fav,
+.btn-cart {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
 }
 
 .btn-fav img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0;
     box-shadow: none;
+    border: none;
+    object-fit: contain;
     cursor: pointer;
 }
 
 .btn-cart img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0;
     cursor: pointer;
     box-shadow: none;
+    border: none;
+    object-fit: contain;
 }
+
+
+.btn-fav img.active {
+    content: url("img/fav2.png");
+}
+
 
 
 /*******************MAIN****************/
@@ -453,5 +466,3 @@ footer {
 }
 
 /*****************FOOTER************/
-
-
