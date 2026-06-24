@@ -27,20 +27,20 @@ header {
     width: 40px;
 }
 
-header ul {
+header  ul {
     margin-top: 45px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 
-header ul li {
+header  ul li {
     list-style: none;
     margin-bottom: 10px;
     padding: 20px;
 }
 
-header ul li a {
+header  ul li a {
     color: var(--color-dark);
     text-decoration: none;
     font-family: var(--font-text);
@@ -54,8 +54,85 @@ header ul li a:hover {
 
 }
 
-header ul li a img {
+header  ul li button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+header ul li button img {
     width : 30px;
+}
+
+/*carrito y fav*/
+
+.container-items {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/*carrito*/
+
+
+.primary-navigation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: var(--color-dark);
+    width: 50%;
+    height: 100%;
+    transform: translateX(-100%) translateY(0%);
+    transition: transform 0.3s ease-out;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    width: 2rem;
+    aspect-ratio: 1;
+    background-image: url(img/cart.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.menu-btn[aria-expanded="true"] {
+    background-image: url(img/close.png);
+    
+}
+
+.primary-navigation[data-visible="true"] {
+    transform: translateX(0%) translateY(0%);
+}
+
+/*favoritos*/
+
+
+
+
+.fav-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    width: 2rem;
+    aspect-ratio: 1;
+    background-image: url(img/fav.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.fav-btn[aria-expanded="true"] {
+    background-image: url(img/close.png);
+    
+}
+
+.primary-fav[data-visible="true"] {
+    transform: translateX(0%) translateY(0%);
 }
 
 
@@ -220,19 +297,6 @@ header ul li a img {
     transition: transform 0.3s ease;
 }
 
-.pelicula a {
-    background-color: var(--color-principal);
-    text-decoration: none;
-    color: var(--color-light);
-    border: none;
-    border-bottom: var(--color-dark) solid 4px;
-    border-right: var(--color-dark) solid 4px;
-    padding: 8px 15px;
-    cursor: pointer;
-    font-family: var(--font-text);
-    font-weight: 800;
-    margin-top: 10px;
-}
 /*-----------peliculas-----------*/
 
 /*-----------series-----------*/
@@ -303,7 +367,18 @@ header ul li a img {
     font-weight: 800;
 }
 
-.serie a {
+/*-----------series-----------*/
+
+
+/*botones de contenedor de peliculas y series*/
+
+.container-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-detalle {
     background-color: var(--color-principal);
     text-decoration: none;
     color: var(--color-light);
@@ -316,8 +391,20 @@ header ul li a img {
     font-weight: 800;
     margin-top: 10px;
 }
-/*-----------series-----------*/
 
+.btn-fav img {
+    width: 40px;
+    height: 40px;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.btn-cart img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    box-shadow: none;
+}
 
 
 /*******************MAIN****************/
