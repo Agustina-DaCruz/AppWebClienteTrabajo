@@ -1,135 +1,76 @@
-const primaryNav = document.querySelector('.primary-navigation');
-const menuBtn = document.querySelector('.menu-btn');
+// Menus laterales
 
-function menuCarrito() {
+const primaryFav = document.querySelector('.primary-fav');
+const favToggle = document.querySelector('.fav-btn');
+const closeFav = document.querySelector('.fav-btn-cerrar');
+const listaFavoritos = document.querySelector('.lista-favoritos');
 
-    const visibility = primaryNav.getAttribute('data-visible');
+const primaryCart = document.querySelector('.primary-cart');
+const cartToggle = document.querySelector('.cart-btn');
+const closeCart = document.querySelector('.cart-btn-cerrar');
+const listaCarrito = document.querySelector('.lista-carrito');
 
-    if(visibility === "false") {
-        primaryNav.setAttribute('data-visible', true);
-    } else if(visibility === "true") {
-        primaryNav.setAttribute('data-visible', false);
-    }
+const closeAll = document.querySelector('.contenido');
+
+favToggle.addEventListener('click', () => {
+    togglePanel(primaryFav);
+    primaryCart.setAttribute('data-visible', false);
+});
+
+closeFav.addEventListener('click', () => {
+    primaryFav.setAttribute('data-visible', false);
+});
+
+cartToggle.addEventListener('click', () => {
+    togglePanel(primaryCart);
+    primaryFav.setAttribute('data-visible', false);
+});
+
+closeCart.addEventListener('click', () => {
+    primaryCart.setAttribute('data-visible', false);
+});
+
+closeAll.addEventListener('click', () => {
+    primaryFav.setAttribute('data-visible', false);
+    primaryCart.setAttribute('data-visible', false);
+});
+
+function togglePanel(panel) {
+    const visibility = panel.getAttribute('data-visible');
+    panel.setAttribute('data-visible', visibility === "false");
 }
 
-menuBtn.addEventListener('click', menuCarrito);
-
-/**********************************************/
-
-const primaryFav = document.querySelector('.primary-navigation');
-const favBtn = document.querySelector('.fav-btn');
-
-function menuFavoritos() {
-
-    const visibility = primaryFav.getAttribute('data-visible');
-
-    if(visibility === "false") {
-        primaryFav.setAttribute('data-visible', true);
-    } else if(visibility === "true") {
-        primaryFav.setAttribute('data-visible', false);
-    }
-}
-
-favBtn.addEventListener('click', menuFavoritos);
-
-const productosFallback = [
-    {
-        id: "avengers1",
-        titulo: "Avengers",
-        precio: 15000,
-        img: "img/posters/avengers1.jpg",
-        detalle: "/redirect/peliculas/redirect/avengers1/avengers1.html"
-    },
-    {
-        id: "hp8",
-        titulo: "Harry Potter 7 pt2",
-        precio: 16000,
-        img: "img/posters/hp8.jpg",
-        detalle: "#"
-    },
-    {
-        id: "batman1",
-        titulo: "Batman Begins",
-        precio: 16000,
-        img: "img/posters/batman1.jpg",
-        detalle: "#"
-    },
-    {
-        id: "sw",
-        titulo: "Star Wars Episode I",
-        precio: 15000,
-        img: "img/posters/sw.jpg",
-        detalle: "#"
-    },
-    {
-        id: "st",
-        titulo: "Stranger Things",
-        precio: 15000,
-        img: "img/posters/st.jpg",
-        detalle: "#"
-    },
-    {
-        id: "got",
-        titulo: "Game of Thrones",
-        precio: 16000,
-        img: "img/posters/got.jpg",
-        detalle: "#"
-    },
-    {
-        id: "tlou",
-        titulo: "The Last of Us",
-        precio: 16000,
-        img: "img/posters/tlou.jpg",
-        detalle: "#"
-    },
-    {
-        id: "daredevil",
-        titulo: "Daredevil",
-        precio: 15000,
-        img: "img/posters/daredevil.jpg",
-        detalle: "#"
-    }
-];
+// Catalogo, favoritos y carrito
 
 let productos = [];
-
-let favoritos = obtenerFavoritos();
-let carrito = obtenerCarrito();
+let favoritos = obtenerStorage("favoritos");
+let carrito = obtenerStorage("carrito");
 
 const contenedorCatalogo = document.querySelector(".contenedor-catalogo");
 
-function obtenerFavoritos() {
+function obtenerStorage(clave) {
     try {
-        return JSON.parse(localStorage.getItem("favoritos")) || [];
+        return JSON.parse(localStorage.getItem(clave)) || [];
     }
     catch (error) {
-        localStorage.removeItem("favoritos");
-        return [];
-    }
-}
-
-function obtenerCarrito() {
-    try {
-        return JSON.parse(localStorage.getItem("carrito")) || [];
-    }
-    catch (error) {
-        localStorage.removeItem("carrito");
+        localStorage.removeItem(clave);
         return [];
     }
 }
 
 async function cargarProductos() {
-
     try {
         const res = await fetch("data/productos.json");
         productos = await res.json();
     }
     catch (error) {
         console.error("Error al cargar los productos", error);
-        productos = productosFallback;
+        productos = [];
     }
 
     renderizarCatalogo();
+    renderizarFavoritos();
+    renderizarCarrito();
 }
 
 function renderizarCatalogo() {
@@ -156,11 +97,13 @@ function renderizarCatalogo() {
 
     document.querySelectorAll(".btn-fav").forEach(btn => {
         btn.addEventListener("click", toggleFavorito);
-    })
+    });
 
     document.querySelectorAll(".btn-cart").forEach(btn => {
         btn.addEventListener("click", toggleCarrito);
-    })
+    });
+
+src="${favoritos.includes(p.id) ? 'img/fav2.png' : 'img/fav.png'}"
 };
 
 function toggleFavorito(e) {
@@ -180,6 +123,7 @@ function toggleFavorito(e) {
     }
 
     localStorage.setItem("favoritos", JSON.stringify(favoritos));
+    renderizarFavoritos();
 };
 
 function toggleCarrito(e) {
@@ -199,7 +143,74 @@ function toggleCarrito(e) {
     }
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
+    renderizarCarrito();
 };
+
+/*function renderizarFavoritos() {
+    const productosFavoritos = productos.filter(p => favoritos.includes(p.id));
+
+    listaFavoritos.innerHTML = productosFavoritos.map(p => `
+        <li>
+            <img src="${p.img}" alt="${p.titulo}">
+            <span>${p.titulo}</span>
+            <button class="remove-fav" data-id="${p.id}"><img src="img/delete.png" alt="eliminar-favorito"></button>
+        </li>
+    `).join('');
+}*/
+
+function renderizarFavoritos() {
+    const productosFavoritos = productos.filter(p => favoritos.includes(p.id));
+
+    // 1. Dibujamos la lista de favoritos en el menú lateral
+    listaFavoritos.innerHTML = productosFavoritos.map(p => `
+        <li>
+            <img src="${p.img}" alt="${p.titulo}">
+            <span>${p.titulo}</span>
+            <button class="remove-fav" data-id="${p.id}">
+                <img src="img/delete.png" alt="eliminar-favorito">
+            </button>
+        </li>
+    `).join('');
+
+    document.querySelectorAll(".remove-fav").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const id = e.currentTarget.dataset.id;
+            favoritos = favoritos.filter(favId => favId !== id);
+            localStorage.setItem("favoritos", JSON.stringify(favoritos));
+            
+            renderizarFavoritos();
+            renderizarCatalogo();
+        });
+    });
+}
+
+/**********************/
+
+function renderizarCarrito() {
+    const productosCarrito = productos.filter(p => carrito.includes(p.id));
+
+    listaCarrito.innerHTML = productosCarrito.map(p => `
+        <li>
+            <img src="${p.img}" alt="${p.titulo}">
+            <span>${p.titulo}</span>
+            <button class="remove-cart" data-id="${p.id}">
+                <img src="img/delete.png" alt="eliminar-carrito">
+            </button>
+        </li>
+    `).join('');
+
+        document.querySelectorAll(".remove-cart").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const id = e.currentTarget.dataset.id;
+            carrito = carrito.filter(cartId => cartId !== id);
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            
+            renderizarCarrito();
+            renderizarCatalogo();
+        });
+    });
+
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
     await cargarProductos();

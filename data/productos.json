@@ -1,55 +1,55 @@
 [
     {
-        "id": "avengers1",
+        "id": "1",
         "titulo": "Avengers",
         "precio": 15000,
         "img": "img/posters/avengers1.jpg",
-        "detalle": "/redirect/peliculas/redirect/avengers1/avengers1.html"
+        "detalle": "/redirect/avengers1/avengers1.html"
     },
     {
-        "id": "hp8",
+        "id": "2",
         "titulo": "Harry Potter 7 pt2",
         "precio": 16000,
         "img": "img/posters/hp8.jpg",
         "detalle": "#"
     },
     {
-        "id": "batman1",
+        "id": "3",
         "titulo": "Batman Begins",
         "precio": 16000,
         "img": "img/posters/batman1.jpg",
         "detalle": "#"
     },
     {
-        "id": "sw",
+        "id": "4",
         "titulo": "Star Wars Episode I",
         "precio": 15000,
         "img": "img/posters/sw.jpg",
         "detalle": "#"
     },
     {
-        "id": "st",
+        "id": "5",
         "titulo": "Stranger Things",
         "precio": 15000,
         "img": "img/posters/st.jpg",
         "detalle": "#"
     },
     {
-        "id": "got",
+        "id": "6",
         "titulo": "Game of Thrones",
         "precio": 16000,
         "img": "img/posters/got.jpg",
         "detalle": "#"
     },
     {
-        "id": "tlou",
+        "id": "7",
         "titulo": "The Last of Us",
         "precio": 16000,
         "img": "img/posters/tlou.jpg",
         "detalle": "#"
     },
     {
-        "id": "daredevil",
+        "id": "8",
         "titulo": "Daredevil",
         "precio": 15000,
         "img": "img/posters/daredevil.jpg",

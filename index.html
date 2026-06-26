@@ -20,22 +20,40 @@
             <li><a href="index.html"><img src="img/logo.png" alt="Logo PostWatch" class="logo"></a></li>
             <li><a href="redirect/nosotros/nosotros.html">Sobre Nosotros</a></li>
             <div class="container-items">
-                <li>
-                    <button class="menu-btn" aria-label="ingresar al carrito" aria-controls="primary-navigation" aria-expanded="false">
-                        <span class="sr-only"></span>
-                    </button>
-                </li>
 
                 <li>
                     <button class="fav-btn" aria-label="ingresar a favoritos" aria-controls="primary-fav" aria-expanded="false">
                         <span class="sr-only"></span>
                     </button>
                 </li>
+
+                <aside class="mis-favoritos primary-fav" id="primary-fav" data-visible="false">
+                    <h1>Mis Favoritos <button class="fav-btn-cerrar"> <span class="sr-only"></span></button></h1>
+                    <ul class="lista-favoritos"></ul>
+                </aside>
+
+                <li>
+                    <button class="cart-btn" aria-label="ingresar al carrito" aria-controls="primary-cart" aria-expanded="false">
+                        <span class="sr-only"></span>
+                    </button>
+                </li>
+
+                <aside class="mi-carrito primary-cart" id="primary-cart" data-visible="false">
+                    <h1>Mi Carrito <button class="cart-btn-cerrar"> <span class="sr-only"></span></button></h1>
+                    <ul class="lista-carrito">
+                        <li>
+                            <img src="${p.img}" alt="${p.titulo}">
+                            <span>${p.titulo}</span>
+                            <button class="remove-fav" data-id="${p.id}"><img src="img/delete.png" alt="eliminar-favorito"></button>
+                        </li>
+                    </ul>
+                </aside>  
+
             </div>
-            
-            <nav id="primary-navigation" data-visible="false" class="primary-navigation"></nav>
         </ul>
     </header>
+
+<main class="contenido">
 <!-- Landing Page -->
     <section class="landing-page">
         <div>   
@@ -50,10 +68,12 @@
         </div>
     </section>
 <!-- Catalogo -->
+ 
     <section class="peliculas" id="catalogo">
         <h1>Catalogo</h1>
         <div class="peliculas-container contenedor-catalogo"></div>
     </section>
+
 <!-- Footer -->
     <footer>
         <section class="container-footer">
@@ -69,6 +89,7 @@
             <p>Todos los derechos reservados 2026 ©</p>
         </section>
     </footer>
+</main>
 
     <script src="main.js" defer></script>
 </body>
