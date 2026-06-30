@@ -87,7 +87,7 @@ async function cargarProductos() {
 
 function renderizarCatalogo() {
     contenedorCatalogo.innerHTML = productos.map(p => `
-        <div class="pelicula">
+        <div class="producto">
             <img src="${p.img}" alt="${p.titulo}">
             <h2>${p.titulo}</h2>
             <p>$${p.precio.toLocaleString('es-AR')}</p>
@@ -99,7 +99,7 @@ function renderizarCatalogo() {
                     <img src="${favoritos.includes(p.id) ? 'img/fav2.png' : 'img/fav.png'}" alt="Favoritos">
                 </a>
                 <a href="#" class="btn-cart" data-id="${p.id}">
-                    <img src="${carrito.includes(p.id) ? 'img/cart2.png' : 'img/cart.png'}" alt="Añadir al Carrito">
+                    <img src="${carrito.some(item => item.id === p.id) ? 'img/cart2.png' : 'img/cart.png'}" alt="Añadir al Carrito">
                 </a>
             </div>
         </div>
@@ -124,21 +124,37 @@ function renderizarFavoritos() {
 
     const productosFavoritos = productos.filter(p => favoritos.includes(p.id));
 
-    listaFavoritos.innerHTML = productosFavoritos.map(p => `
-        <li>
-
+    // Generamos los elementos individuales de la lista
+    const HTMLProductos = productosFavoritos.map(p => `
+        <li style="display: flex; align-items: center; gap: 12px; width: 100%;">
             <img src="${p.img}" alt="${p.titulo}">
-            <span>${p.titulo}</span>
+            <div>
+                <span>${p.titulo}</span>
+                <p>$${p.precio.toLocaleString('es-AR')}</p>
+            </div>
             <button class="remove-fav" data-id="${p.id}">
                 <img src="img/delete.png" alt="eliminar-favorito">
             </button>
         </li>
     `).join('');
 
+    // Envolvemos los productos en el contenedor de scroll idéntico al carrito
+    const HTMLContenedorScroll = productosFavoritos.length > 0
+        ? `
+            <div class="scroll-interno-favoritos">
+                ${HTMLProductos}
+            </div>
+          `
+        : '';
+
+    // Inyectamos la estructura limpia sin romper la jerarquía del menú
+    listaFavoritos.innerHTML = HTMLContenedorScroll;
+
+    // Escuchadores de eventos para eliminar
     document.querySelectorAll(".remove-fav").forEach(btn => {
         btn.addEventListener("click", (e) => {
             const id = e.currentTarget.dataset.id;
-        favoritos = favoritos.filter(favId => favId !== id);
+            favoritos = favoritos.filter(favId => favId !== id);
             localStorage.setItem("favoritos", JSON.stringify(favoritos));
             renderizarFavoritos();
             if (contenedorCatalogo) renderizarCatalogo();
@@ -151,27 +167,97 @@ function renderizarFavoritos() {
 function renderizarCarrito() {
     if (!listaCarrito) return;
 
-    const productosCarrito = productos.filter(p => carrito.includes(p.id));
+    const productosCarrito = productos.filter(p => 
+        carrito.some(item => item.id === p.id)
+    );
 
-    listaCarrito.innerHTML = productosCarrito.map(p => `
-        <li>
-            <img src="${p.img}" alt="${p.titulo}">
-            <span>${p.titulo}</span>
-            <button class="remove-cart" data-id="${p.id}">
-                <img src="img/delete.png" alt="eliminar-carrito">
-            </button>
-        </li>
-    `).join('');
+    let totalCompra = 0;
+
+    const HTMLProductos = productosCarrito.map(p => {
+        const itemCarrito = carrito.find(item => item.id === p.id);
+        const cantidad = itemCarrito ? itemCarrito.cantidad : 1;
+
+        const precioTotal = p.precio * cantidad;
+        
+        totalCompra += precioTotal;
+
+        return `
+            <li>
+                <img src="${p.img}" alt="${p.titulo}">
+                <div class="text-cart">
+                    <span>${p.titulo}</span>
+                    <p>$${precioTotal.toLocaleString('es-AR')}</p>
+                </div>
+                <div class="control-cantidad" style="display: inline-flex; align-items: center; gap: 5px; margin: 0 10px;">
+                    <button class="btn-menos" data-id="${p.id}" style="cursor:pointer; padding: 2px 6px;">-</button>
+                    <span class="cantidad-num">${cantidad}</span>
+                    <button class="btn-mas" data-id="${p.id}" style="cursor:pointer; padding: 2px 5px;">+</button>
+                </div>
+
+                <button class="remove-cart" data-id="${p.id}">
+                    <img src="img/delete.png" alt="eliminar-carrito">
+                </button>
+            </li>  
+        `;
+    }).join('');
+
+    const HTMLTotal = productosCarrito.length > 0 
+        ? `
+            <div class="total-carrito">
+                <span>Total:</span>
+                <span>$${totalCompra.toLocaleString('es-AR')}</span>
+            </div>
+          `
+        : '';
+
+    listaCarrito.innerHTML = HTMLProductos + HTMLTotal;
+
+    /*Botón (-)*/
+    document.querySelectorAll(".btn-menos").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const id = e.currentTarget.dataset.id;
+            const item = carrito.find(item => item.id === id);
+            
+            if (item) {
+                if (item.cantidad > 1) {
+                    item.cantidad--;
+                }
+                guardarCarrito();
+            }
+        });
+    });
+
+    /*Botón (+)*/
+    document.querySelectorAll(".btn-mas").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const id = e.currentTarget.dataset.id;
+            const item = carrito.find(item => item.id === id);
+            
+            if (item) {
+                if (item.cantidad < 9) { item.cantidad++; }
+                guardarCarrito();
+            }
+        });
+    });
 
     document.querySelectorAll(".remove-cart").forEach(btn => {
         btn.addEventListener("click", (e) => {
             const id = e.currentTarget.dataset.id;
-            carrito = carrito.filter(cartId => cartId !== id);
-            localStorage.setItem("carrito", JSON.stringify(carrito));
-            renderizarCarrito();
-            if (contenedorCatalogo) renderizarCatalogo();
+            carrito = carrito.filter(item => item.id !== id);
+            guardarCarrito();
         });
     });
+}
+
+
+
+
+/*guardar carrito*/
+function guardarCarrito() {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    renderizarCarrito();
+    if (contenedorCatalogo) renderizarCatalogo();
+    if (typeof renderizarDetalle === "function" && document.querySelector("#detalle")) renderizarDetalle();
 }
 
 
@@ -201,7 +287,7 @@ function renderizarDetalle() {
                 <p class="precio">$${prod.precio.toLocaleString('es-AR')}</p>
             
                 <p class="descripcion" style="margin-top: 20px; font-family: sans-serif;">
-                    ${prod.descripcion || "Sin descripción disponible."}
+                    ${prod.descripcion}
                 </p>
 
                 <div class="container-buttons">
@@ -235,21 +321,28 @@ function toggleFavorito(e) {
     renderizarFavoritos();
 }
 //-------------
+
+
 function toggleCarrito(e) {
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
 
-    if (carrito.includes(id)) {
-        carrito = carrito.filter(cartId => cartId !== id);
+    // Verificamos si ya existe el objeto con ese id en el carrito
+    const existe = carrito.find(item => item.id === id);
+
+    if (existe) {
+        // Si ya existía en el catálogo y le vuelve a dar click, lo saca (comportamiento toggle original)
+        carrito = carrito.filter(item => item.id !== id);
     } else {
-        carrito.push(id);
+        // Si no existía, lo añade como un nuevo objeto iniciando en cantidad 1
+        carrito.push({ id: id, cantidad: 1 });
     }
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
     if (contenedorCatalogo) renderizarCatalogo();
     renderizarCarrito();
 }
-
+//---------------
 document.addEventListener("DOMContentLoaded", () => {
     cargarProductos();
 });
