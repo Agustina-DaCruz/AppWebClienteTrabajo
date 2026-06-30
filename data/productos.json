@@ -4,55 +4,63 @@
         "titulo": "Avengers",
         "precio": 15000,
         "img": "img/posters/avengers1.jpg",
-        "detalle": "/redirect/avengers1/avengers1.html"
+        "detalle": "detalle.html?id=1",
+        "descripcion": "Avengers es una película de superhéroes basada en el equipo de superhéroes de Marvel Comics del mismo nombre. La película fue dirigida por Joss Whedon y cuenta con un elenco estelar que incluye a Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson y Jeremy Renner. La trama sigue a los Vengadores mientras se unen para detener a Loki, el hermano adoptivo de Thor, quien planea conquistar la Tierra con la ayuda de un ejército alienígena."
     },
     {
         "id": "2",
         "titulo": "Harry Potter 7 pt2",
         "precio": 16000,
         "img": "img/posters/hp8.jpg",
-        "detalle": "#"
+        "detalle": "detalle.html?id=2",
+        "descripcion": "Harry Potter y las Reliquias de la Muerte, Parte 2 es una película de fantasía y aventura dirigida por David Yates. La película es la continuación de la saga de Harry Potter y presenta a los protagonistas en su último año en el colegio Hogwarts."
     },
     {
         "id": "3",
         "titulo": "Batman Begins",
         "precio": 16000,
         "img": "img/posters/batman1.jpg",
-        "detalle": "#"
+        "detalle": "detalle.html?id=3",
+        "descripcion": "Batman Begins es una película de superhéroes dirigida por Christopher Nolan. La película cuenta la historia del origen de Batman, desde la muerte de sus padres hasta su transformación en el Caballero Oscuro. La trama sigue a Bruce Wayne mientras lucha contra el crimen en Gotham City y enfrenta a villanos como Ra's al Ghul y el Espantapájaros."
     },
     {
         "id": "4",
         "titulo": "Star Wars Episode I",
         "precio": 15000,
         "img": "img/posters/sw.jpg",
-        "detalle": "#"
+        "detalle": "detalle.html?id=4",
+        "descripcion": "Star Wars: Episode I - The Phantom Menace es una película de ciencia ficción y aventura dirigida por George Lucas. La película es la primera entrega de la trilogía de precuelas de Star Wars y sigue a los personajes Obi-Wan Kenobi y Qui-Gon Jinn mientras intentan proteger a la joven Anakin Skywalker y enfrentarse al malvado Darth Maul."
     },
     {
         "id": "5",
         "titulo": "Stranger Things",
         "precio": 15000,
         "img": "img/posters/st.jpg",
-        "detalle": "#"
+        "detalle": "detalle.html?id=5",
+        "descripcion": "Stranger Things es una serie de televisión de ciencia ficción y terror creada por los hermanos Duffer. La serie se desarrolla en la década de 1980 en el pueblo ficticio de Hawkins, Indiana, y sigue a un grupo de niños mientras investigan la desaparición de su amigo Will Byers y descubren la existencia de un mundo paralelo llamado 'El Otro Lado'."
     },
     {
         "id": "6",
         "titulo": "Game of Thrones",
         "precio": 16000,
         "img": "img/posters/got.jpg",
-        "detalle": "#"
+        "detalle": "detalle.html?id=6",
+        "descripcion": "Game of Thrones es una serie de televisión de fantasía y drama basada en la saga de novelas 'Canción de Hielo y Fuego' de George R.R. Martin. La serie se desarrolla en los continentes ficticios de Westeros y Essos, y sigue las luchas de varias familias nobles por el control del Trono de Hierro y el destino de los Siete Reinos."
     },
     {
         "id": "7",
         "titulo": "The Last of Us",
         "precio": 16000,
         "img": "img/posters/tlou.jpg",
-        "detalle": "#"
+        "detalle": "detalle.html?id=7",
+        "descripcion": "The Last of Us es una serie de televisión de drama y acción basada en el popular videojuego del mismo nombre desarrollado por Naughty Dog. La serie sigue a Joel y Ellie, dos sobrevivientes en un mundo post-apocalíptico devastado por una infección fúngica que ha convertido a gran parte de la población en criaturas agresivas. A medida que viajan a través de Estados Unidos, enfrentan peligros tanto humanos como infectados mientras desarrollan un vínculo profundo."
     },
     {
         "id": "8",
         "titulo": "Daredevil",
         "precio": 15000,
         "img": "img/posters/daredevil.jpg",
-        "detalle": "#"
+        "detalle": "detalle.html?id=8",
+        "descripcion": "Daredevil es una serie de televisión de superhéroes basada en el personaje de Marvel Comics del mismo nombre. La serie sigue a Matt Murdock, un abogado ciego que lucha contra el crimen en la ciudad de Nueva York como el vigilante Daredevil. A lo largo de la serie, Murdock enfrenta a villanos peligrosos y se enfrenta a dilemas morales mientras protege a los inocentes y busca justicia."
     }
 ]

@@ -1,0 +1,67 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="estilos.css">
+        <link rel="icon" href="/img/icono.jpg">
+        <title>PostWatch - Detalle</title>
+    </head>
+    <body>
+
+        <header>
+            <ul>
+                <li><a href="index.html"><img src="img/logo.png" alt="Logo PostWatch" class="logo"></a></li>
+                <li><a href="nosotros/nosotros.html">Sobre Nosotros</a></li>
+                <div class="container-items">
+
+                    <li>
+                        <button class="fav-btn" aria-label="ingresar a favoritos" aria-controls="primary-fav" aria-expanded="false">
+                            <span class="sr-only"></span>
+                        </button>
+                    </li>
+
+                    <aside class="mis-favoritos primary-fav" id="primary-fav" data-visible="false">
+                        <h1>Mis Favoritos <button class="fav-btn-cerrar"> <span class="sr-only"></span></button></h1>
+                        <ul class="lista-favoritos"></ul>
+                    </aside>
+
+                    <li>
+                        <button class="cart-btn" aria-label="ingresar al carrito" aria-controls="primary-cart" aria-expanded="false">
+                            <span class="sr-only"></span>
+                        </button>
+                    </li>
+
+                    <aside class="mi-carrito primary-cart" id="primary-cart" data-visible="false">
+                        <h1>Mi Carrito <button class="cart-btn-cerrar"> <span class="sr-only"></span></button></h1>
+                        <ul class="lista-carrito">
+
+                        </ul>
+                    </aside>  
+
+                </div>
+            </ul>
+        </header>
+
+    <main class="contenido">
+        <section id="detalle"></section> 
+    </main>
+
+        <footer>
+            <section class="container-footer">
+                <img src="./img/logo.png" alt="Logo PostWatch Final (Footer)">
+                <ul>
+                    <li><a href="https://www.instagram.com/">Instagram</a></li>
+                    <li><a href="https://www.tiktok.com/">TikTok</a></li>
+                    <li><a href="https://www.youtube.com/">Youtube</a></li>
+                    <li><a href="https://www.facebook.com/">Facebook</a></li>
+                </ul>
+            </section>
+            <section class="text-footer">
+                <p>Todos los derechos reservados 2026 ©</p>
+            </section>
+        </footer>
+
+    <script src="main.js"></script>
+    </body>
+    </html>
