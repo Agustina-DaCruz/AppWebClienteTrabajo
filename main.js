@@ -1,5 +1,5 @@
 
-// 1. MENÚES
+// MENÚES
 
 const primaryFav = document.querySelector('.primary-fav');
 const favToggle = document.querySelector('.fav-btn');
@@ -38,12 +38,6 @@ if (closeAll) {
     });
 }
 
-function togglePanel(panel) {
-    if (!panel) return;
-    const visibility = panel.getAttribute('data-visible');
-    panel.setAttribute('data-visible', visibility === "false");
-}
-
 let productos = [];
 let favoritos = obtenerStorage("favoritos");
 let carrito = obtenerStorage("carrito");
@@ -61,6 +55,47 @@ function obtenerStorage(clave) {
 }
 
 //CARGA DE PRODUCTOS
+
+//LA FUNCIÓN NUEVA CON EL AIRTABLE NO FUNCIONA. NO PUDE ENCONTRAR EL ERROR.
+/*
+const AIRTABLE_BASE_ID = 'appqQDtcDfq4y7tBX';
+const AIRTABLE_PAT = 'pat0Lt3APUTdD6yHg.5f3dfe0d54f35161b4cac81e96b4db910cc42542481c4a3267dbd26870ce0644';
+
+
+async function cargarProductos() {
+
+    try {
+        const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/productos?view=Grid%20view`, {
+            headers: {
+                Authorization: `Bearer ${AIRTABLE_PAT}`
+            }
+        });
+
+        const data = await res.json();
+        productos = data.records.map(r => r.fields);
+
+        console.log("PRODUCTOS DESDE AIRTABLE:", productos);
+
+        
+    if (contenedorCatalogo) {
+        renderizarCatalogo();
+    }
+    if (contenedorDetalle) {
+        renderizarDetalle();
+    }
+    
+
+    renderizarFavoritos();
+    renderizarCarrito();
+
+    }
+    catch (error) {
+        console.error("Error al cargar los productos", error);
+    }
+
+}*/
+
+
 
 async function cargarProductos() {
     try {
@@ -116,7 +151,7 @@ function renderizarCatalogo() {
     document.querySelectorAll(".btn-cart").forEach(btn => btn.addEventListener("click", toggleCarrito));
 }
 
-//FAVORITOS
+// FAVORITOS
 
 function renderizarFavoritos() {
 
@@ -124,7 +159,6 @@ function renderizarFavoritos() {
 
     const productosFavoritos = productos.filter(p => favoritos.includes(p.id));
 
-    // Generamos los elementos individuales de la lista
     const HTMLProductos = productosFavoritos.map(p => `
         <li style="display: flex; align-items: center; gap: 12px; width: 100%;">
             <img src="${p.img}" alt="${p.titulo}">
@@ -138,7 +172,6 @@ function renderizarFavoritos() {
         </li>
     `).join('');
 
-    // Envolvemos los productos en el contenedor de scroll idéntico al carrito
     const HTMLContenedorScroll = productosFavoritos.length > 0
         ? `
             <div class="scroll-interno-favoritos">
@@ -147,17 +180,21 @@ function renderizarFavoritos() {
           `
         : '';
 
-    // Inyectamos la estructura limpia sin romper la jerarquía del menú
     listaFavoritos.innerHTML = HTMLContenedorScroll;
 
-    // Escuchadores de eventos para eliminar
     document.querySelectorAll(".remove-fav").forEach(btn => {
         btn.addEventListener("click", (e) => {
             const id = e.currentTarget.dataset.id;
             favoritos = favoritos.filter(favId => favId !== id);
             localStorage.setItem("favoritos", JSON.stringify(favoritos));
+            
             renderizarFavoritos();
+            
             if (contenedorCatalogo) renderizarCatalogo();
+            
+            if (typeof renderizarDetalle === "function" && document.querySelector("#detalle")) {
+                renderizarDetalle();
+            }
         });
     });
 }
@@ -182,7 +219,7 @@ function renderizarCarrito() {
         totalCompra += precioTotal;
 
         return `
-            <li>
+            <li style="display: flex; align-items: center; gap: 12px; width: 100%;">
                 <img src="${p.img}" alt="${p.titulo}">
                 <div class="text-cart">
                     <span>${p.titulo}</span>
@@ -201,6 +238,14 @@ function renderizarCarrito() {
         `;
     }).join('');
 
+    const HTMLContenedorScroll = productosCarrito.length > 0
+        ? `
+            <div class="scroll-interno-carrito">
+                ${HTMLProductos}
+            </div>
+          `
+        : '';
+
     const HTMLTotal = productosCarrito.length > 0 
         ? `
             <div class="total-carrito">
@@ -210,7 +255,7 @@ function renderizarCarrito() {
           `
         : '';
 
-    listaCarrito.innerHTML = HTMLProductos + HTMLTotal;
+    listaCarrito.innerHTML = HTMLContenedorScroll + HTMLTotal;
 
     /*Botón (-)*/
     document.querySelectorAll(".btn-menos").forEach(btn => {
@@ -270,10 +315,11 @@ function renderizarDetalle() {
     
     if (!contenedorDetalle) return;
 
-    if (!prod) {   return;
-    }
+    if (!prod) return;
 
-    const enCarrito = carrito.some(item => Number(item) === Number(prod.id));
+    const prodIdString = String(prod.id);
+    const enCarrito = carrito.some(item => String(item.id) === prodIdString);
+    const enFavoritos = favoritos.includes(prodIdString);
 
     contenedorDetalle.innerHTML = `
         <div class="contenedor-principal-detalle">
@@ -292,7 +338,7 @@ function renderizarDetalle() {
 
                 <div class="container-buttons">
                     <button class="btn-fav" data-id="${prod.id}">
-                        <img src="${favoritos.includes(prod.id) ? 'img/fav4.png' : 'img/fav3.png'}" alt="Favorito">
+                        <img src="${enFavoritos ? 'img/fav4.png' : 'img/fav3.png'}" alt="Favorito">
                     </button>
                     <button class="btn-cart" data-id="${prod.id}">
                         <img src="${enCarrito ? 'img/cart4.png' : 'img/cart3.png'}" alt="Carrito">
@@ -301,16 +347,42 @@ function renderizarDetalle() {
             </div>
 
         </div>`;
+
+    const btnFavDetalle = contenedorDetalle.querySelector(".btn-fav");
+    const btnCartDetalle = contenedorDetalle.querySelector(".btn-cart");
+
+    if (btnFavDetalle) {
+        btnFavDetalle.addEventListener("click", (e) => {
+            toggleFavorito(e);
+            renderizarDetalle();
+        });
+    }
+
+    if (btnCartDetalle) {
+        btnCartDetalle.addEventListener("click", (e) => {
+            toggleCarrito(e);
+            renderizarDetalle();
+        });
+    }
 }
 
 
-// 5. TOGGLES
+//TOGGLES
+
+function togglePanel(panel) {
+    if (!panel) return;
+    const visibility = panel.getAttribute('data-visible');
+    panel.setAttribute('data-visible', visibility === "false");
+}
+
 
 function toggleFavorito(e) {
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
 
-    if (favoritos.includes(id)) {
+    const existe = favoritos.find(favId => favId === id);
+
+    if (existe) {
         favoritos = favoritos.filter(favId => favId !== id);
     } else {
         favoritos.push(id);
@@ -320,21 +392,18 @@ function toggleFavorito(e) {
     if (contenedorCatalogo) renderizarCatalogo();
     renderizarFavoritos();
 }
-//-------------
+
 
 
 function toggleCarrito(e) {
     e.preventDefault();
     const id = e.currentTarget.dataset.id;
 
-    // Verificamos si ya existe el objeto con ese id en el carrito
     const existe = carrito.find(item => item.id === id);
 
     if (existe) {
-        // Si ya existía en el catálogo y le vuelve a dar click, lo saca (comportamiento toggle original)
         carrito = carrito.filter(item => item.id !== id);
     } else {
-        // Si no existía, lo añade como un nuevo objeto iniciando en cantidad 1
         carrito.push({ id: id, cantidad: 1 });
     }
 
@@ -342,6 +411,8 @@ function toggleCarrito(e) {
     if (contenedorCatalogo) renderizarCatalogo();
     renderizarCarrito();
 }
+
+
 //---------------
 document.addEventListener("DOMContentLoaded", () => {
     cargarProductos();
