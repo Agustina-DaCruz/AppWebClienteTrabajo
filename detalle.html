@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="es">
     <head>
         <meta charset="UTF-8">
@@ -11,39 +11,42 @@
     </head>
     <body>
 
-        <header>
-            <ul>
-                <li><a href="index.html"><img src="img/logo.png" alt="Logo PostWatch" class="logo"></a></li>
-                <li><a href="nosotros/nosotros.html">Sobre Nosotros</a></li>
-                <div class="container-items">
+<!-- Encabezado -->    
+    <header>
+        <div class="container-header">
+        <a href="index.html"><img src="img/logo2.png" alt="Logo PostWatch" class="logo"></a>
+        <a href="nosotros.html">Sobre Nosotros</a>
 
-                    <li>
-                        <button class="fav-btn" aria-label="ingresar a favoritos" aria-controls="primary-fav" aria-expanded="false">
-                            <span class="sr-only"></span>
-                        </button>
-                    </li>
+        <nav class="container-items">
+            <button class="fav-btn" aria-label="ingresar a favoritos" aria-controls="primary-fav" aria-expanded="false">
+                <span class="sr-only">Ingresar a Favoritos</span>
+            </button>
 
-                    <aside class="mis-favoritos primary-fav" id="primary-fav" data-visible="false">
-                        <h1>Mis Favoritos <button class="fav-btn-cerrar"> <span class="sr-only"></span></button></h1>
-                        <ul class="lista-favoritos"></ul>
-                    </aside>
+            <button class="cart-btn" aria-label="ingresar al carrito" aria-controls="primary-cart" aria-expanded="false">
+                <span class="sr-only">Ingresar al Carrito</span>
+            </button>
 
-                    <li>
-                        <button class="cart-btn" aria-label="ingresar al carrito" aria-controls="primary-cart" aria-expanded="false">
-                            <span class="sr-only"></span>
-                        </button>
-                    </li>
+            <button id="btn-abrir-favoritos" class="btn-header">
+                <span id="contador-favoritos" class="badge-contador-fav">0</span>
+            </button>
 
-                    <aside class="mi-carrito primary-cart" id="primary-cart" data-visible="false">
-                        <h1>Mi Carrito <button class="cart-btn-cerrar"> <span class="sr-only"></span></button></h1>
-                        <ul class="lista-carrito">
+            <button id="btn-abrir-carrito" class="btn-header">
+                <span id="contador-carrito" class="badge-contador-cart">0</span>
+            </button>
+            
+        </nav>
 
-                        </ul>
-                    </aside>  
+        <aside class="mis-favoritos primary-fav" id="primary-fav" data-visible="false">
+            <h1>Mis Favoritos <button class="fav-btn-cerrar"><span class="sr-only">Cerrar Favoritos</span></button></h1>
+            <ul class="lista-favoritos"></ul>
+        </aside>
 
-                </div>
-            </ul>
-        </header>
+        <aside class="mi-carrito primary-cart" id="primary-cart" data-visible="false">
+            <h1>Mi Carrito <button class="cart-btn-cerrar"> <span class="sr-only">Cerrar Carrito</span></button></h1>
+            <ul class="lista-carrito"></ul>
+        </aside>  
+        </div>
+    </header>
 
     <main class="contenido">
         <section id="detalle"></section> 
@@ -51,7 +54,7 @@
 
         <footer>
             <section class="container-footer">
-                <img src="./img/logo.png" alt="Logo PostWatch Final (Footer)">
+                <img class="logo-footer" src="/img/logo2.png" alt="Logo PostWatch Final (Footer)">
                 <ul>
                     <li><a href="https://www.instagram.com/">Instagram</a></li>
                     <li><a href="https://www.tiktok.com/">TikTok</a></li>

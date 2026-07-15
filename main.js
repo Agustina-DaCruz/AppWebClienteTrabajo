@@ -43,7 +43,7 @@ let favoritos = obtenerStorage("favoritos");
 let carrito = obtenerStorage("carrito");
 
 const contenedorCatalogo = document.querySelector(".contenedor-catalogo");
-const contenedorDetalle = document.querySelector("#detalle"); // Capturamos el contenedor de detalles
+const contenedorDetalle = document.querySelector("#detalle");
 
 function obtenerStorage(clave) {
     try {
@@ -56,67 +56,46 @@ function obtenerStorage(clave) {
 
 //CARGA DE PRODUCTOS
 
-//LA FUNCIÓN NUEVA CON EL AIRTABLE NO FUNCIONA. NO PUDE ENCONTRAR EL ERROR.
-/*
+
 const AIRTABLE_BASE_ID = 'appqQDtcDfq4y7tBX';
 const AIRTABLE_PAT = 'pat0Lt3APUTdD6yHg.5f3dfe0d54f35161b4cac81e96b4db910cc42542481c4a3267dbd26870ce0644';
 
-
 async function cargarProductos() {
-
     try {
-        const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/productos?view=Grid%20view`, {
+        const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/productos`, {
             headers: {
                 Authorization: `Bearer ${AIRTABLE_PAT}`
             }
         });
 
         const data = await res.json();
-        productos = data.records.map(r => r.fields);
-
-        console.log("PRODUCTOS DESDE AIRTABLE:", productos);
-
         
-    if (contenedorCatalogo) {
-        renderizarCatalogo();
-    }
-    if (contenedorDetalle) {
-        renderizarDetalle();
-    }
-    
+        productos = data.records.map(r => {
+            return {
+                ...r.fields,
+                id: String(r.fields.id)
+            };
+        });
 
-    renderizarFavoritos();
-    renderizarCarrito();
+        console.log("PRODUCTOS DESDE AIRTABLE PROCESADOS:", productos);
 
-    }
-    catch (error) {
-        console.error("Error al cargar los productos", error);
-    }
+        if (contenedorCatalogo) {
+            renderizarCatalogo();
+        }
+        if (contenedorDetalle) {
+            renderizarDetalle();
+        }
+        
+        renderizarFavoritos();
+        renderizarCarrito();
+        actualizarContadorFavoritos();
+        actualizarContadorCarrito();
 
-}*/
-
-
-
-async function cargarProductos() {
-    try {
-        const res = await fetch("data/productos.json");
-        productos = await res.json();
     } catch (error) {
         console.error("Error al cargar los productos", error);
-        productos = [];
     }
-
-    if (contenedorCatalogo) {
-        renderizarCatalogo();
-    }
-    if (contenedorDetalle) {
-        renderizarDetalle();
-    }
-    
-
-    renderizarFavoritos();
-    renderizarCarrito();
 }
+
 
 //CATÁLOGO
 
@@ -131,10 +110,10 @@ function renderizarCatalogo() {
                 <!-- Cambiado: Ahora va a detalle.html a secas y lleva el data-id -->
                 <a href="detalle.html" class="btn-detalle" data-id="${p.id}">Detalle</a>
                 <a href="#" class="btn-fav" data-id="${p.id}">
-                    <img src="${favoritos.includes(p.id) ? 'img/fav2.png' : 'img/fav.png'}" alt="Favoritos">
+                    <img src="${favoritos.includes(p.id) ? 'img/fav2.svg' : 'img/fav.svg'}" alt="Favoritos">
                 </a>
                 <a href="#" class="btn-cart" data-id="${p.id}">
-                    <img src="${carrito.some(item => item.id === p.id) ? 'img/cart2.png' : 'img/cart.png'}" alt="Añadir al Carrito">
+                    <img src="${carrito.some(item => item.id === p.id) ? 'img/cart2.svg' : 'img/cart.svg'}" alt="Añadir al Carrito">
                 </a>
             </div>
         </div>
@@ -160,14 +139,14 @@ function renderizarFavoritos() {
     const productosFavoritos = productos.filter(p => favoritos.includes(p.id));
 
     const HTMLProductos = productosFavoritos.map(p => `
-        <li style="display: flex; align-items: center; gap: 12px; width: 100%;">
-            <img src="${p.img}" alt="${p.titulo}">
+        <li>
+            <img class="img-fav" src="${p.img}" alt="${p.titulo}">
             <div>
                 <span>${p.titulo}</span>
                 <p>$${p.precio.toLocaleString('es-AR')}</p>
             </div>
             <button class="remove-fav" data-id="${p.id}">
-                <img src="img/delete.png" alt="eliminar-favorito">
+                <img src="img/delete.svg" alt="eliminar-favorito">
             </button>
         </li>
     `).join('');
@@ -189,6 +168,8 @@ function renderizarFavoritos() {
             localStorage.setItem("favoritos", JSON.stringify(favoritos));
             
             renderizarFavoritos();
+            actualizarContadorFavoritos();
+            actualizarContadorCarrito();
             
             if (contenedorCatalogo) renderizarCatalogo();
             
@@ -198,6 +179,7 @@ function renderizarFavoritos() {
         });
     });
 }
+
 
 //CARRITO
 
@@ -219,20 +201,20 @@ function renderizarCarrito() {
         totalCompra += precioTotal;
 
         return `
-            <li style="display: flex; align-items: center; gap: 12px; width: 100%;">
-                <img src="${p.img}" alt="${p.titulo}">
+            <li>
+                <img class="img-cart" src="${p.img}" alt="${p.titulo}">
                 <div class="text-cart">
                     <span>${p.titulo}</span>
                     <p>$${precioTotal.toLocaleString('es-AR')}</p>
                 </div>
-                <div class="control-cantidad" style="display: inline-flex; align-items: center; gap: 5px; margin: 0 10px;">
-                    <button class="btn-menos" data-id="${p.id}" style="cursor:pointer; padding: 2px 6px;">-</button>
+                <div class="control-cantidad">
+                    <button class="btn-menos" data-id="${p.id}">-</button>
                     <span class="cantidad-num">${cantidad}</span>
-                    <button class="btn-mas" data-id="${p.id}" style="cursor:pointer; padding: 2px 5px;">+</button>
+                    <button class="btn-mas" data-id="${p.id}">+</button>
                 </div>
 
                 <button class="remove-cart" data-id="${p.id}">
-                    <img src="img/delete.png" alt="eliminar-carrito">
+                    <img src="img/delete.svg" alt="eliminar-carrito">
                 </button>
             </li>  
         `;
@@ -332,16 +314,16 @@ function renderizarDetalle() {
                 <h1>${prod.titulo}</h1>
                 <p class="precio">$${prod.precio.toLocaleString('es-AR')}</p>
             
-                <p class="descripcion" style="margin-top: 20px; font-family: sans-serif;">
+                <p class="descripcion">
                     ${prod.descripcion}
                 </p>
 
                 <div class="container-buttons">
                     <button class="btn-fav" data-id="${prod.id}">
-                        <img src="${enFavoritos ? 'img/fav4.png' : 'img/fav3.png'}" alt="Favorito">
+                        <img src="${enFavoritos ? 'img/fav4.svg' : 'img/fav3.svg'}" alt="Favorito">
                     </button>
                     <button class="btn-cart" data-id="${prod.id}">
-                        <img src="${enCarrito ? 'img/cart4.png' : 'img/cart3.png'}" alt="Carrito">
+                        <img src="${enCarrito ? 'img/cart4.svg' : 'img/cart3.svg'}" alt="Carrito">
                     </button>
                 </div>
             </div>
@@ -391,6 +373,7 @@ function toggleFavorito(e) {
     localStorage.setItem("favoritos", JSON.stringify(favoritos));
     if (contenedorCatalogo) renderizarCatalogo();
     renderizarFavoritos();
+    actualizarContadorFavoritos();
 }
 
 
@@ -410,6 +393,42 @@ function toggleCarrito(e) {
     localStorage.setItem("carrito", JSON.stringify(carrito));
     if (contenedorCatalogo) renderizarCatalogo();
     renderizarCarrito();
+    actualizarContadorCarrito();
+}
+
+
+/*PRUEBA*/
+
+// NUEVA FUNCIÓN: Cuenta cuántos favoritos hay y actualiza el header
+function actualizarContadorFavoritos() {
+    const contador = document.getElementById("contador-favoritos");
+    if (!contador) return; // Seguridad por si no estamos en una página con header
+
+    const cantidad = favoritos.length;
+    contador.textContent = cantidad;
+
+    // Opcional: Si querés ocultar la burbuja cuando está en 0
+    if (cantidad > 0) {
+        contador.style.display = "flex";
+    } else {
+        contador.style.display = "none";
+    }
+}
+
+// NUEVA FUNCIÓN: Cuenta cuántos productos hay en el carrito y actualiza el header
+function actualizarContadorCarrito() {
+    const contador = document.getElementById("contador-carrito");
+    if (!contador) return; // Seguridad por si no estamos en una página con header
+
+    const cantidad = carrito.reduce((total, item) => total + item.cantidad, 0);
+    contador.textContent = cantidad;
+
+    // Opcional: Si querés ocultar la burbuja cuando está en 0
+    if (cantidad > 0) {
+        contador.style.display = "flex";
+    } else {
+        contador.style.display = "none";
+    }
 }
 
 

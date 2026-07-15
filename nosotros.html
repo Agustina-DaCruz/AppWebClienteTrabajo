@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/estilos.css">
+    <link rel="icon" href="/img/icono.jpg">
+    <title>PostWatch - Sobre Nosotros</title>
+     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Krona+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Oswald:wght@360&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Krona+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Oswald:wght@360&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Encabezado -->    
+    <header>
+        <div class="container-header">
+        <a href="/index.html"><img src="/img/logo2.png" alt="Logo PostWatch" class="logo"></a>
+        <a href="nosotros.html">Sobre Nosotros</a>
+
+        <nav class="container-items">
+            <button class="fav-btn" aria-label="ingresar a favoritos" aria-controls="primary-fav" aria-expanded="false">
+                <span class="sr-only">Ingresar a Favoritos</span>
+            </button>
+
+            <button class="cart-btn" aria-label="ingresar al carrito" aria-controls="primary-cart" aria-expanded="false">
+                <span class="sr-only">Ingresar al Carrito</span>
+            </button>
+
+            <button id="btn-abrir-favoritos" class="btn-header">
+                <span id="contador-favoritos" class="badge-contador-fav">0</span>
+            </button>
+
+            <button id="btn-abrir-carrito" class="btn-header">
+                <span id="contador-carrito" class="badge-contador-cart">0</span>
+            </button>
+            
+        </nav>
+
+        <aside class="mis-favoritos primary-fav" id="primary-fav" data-visible="false">
+            <h1>Mis Favoritos <button class="fav-btn-cerrar"><span class="sr-only">Cerrar Favoritos</span></button></h1>
+            <ul class="lista-favoritos"></ul>
+        </aside>
+
+        <aside class="mi-carrito primary-cart" id="primary-cart" data-visible="false">
+            <h1>Mi Carrito <button class="cart-btn-cerrar"> <span class="sr-only">Cerrar Carrito</span></button></h1>
+            <ul class="lista-carrito"></ul>
+        </aside>  
+        </div>
+    </header>
+
+
+    <!-- Principal -->  
+    <main>
+
+        <h1 class="titulo-nosotros">Sobre Nosotros</h1>
+        <div class="linea-grande"></div>
+        <div class="linea-chica"></div>
+        
+
+        <section class="parrafos">
+            <img src="/img/nosotrosHP.jpg" alt="Poster">
+            <section class="texto">          
+                <h2>Nuestra Historia</h2>
+                <p>
+                En PostWatch, nos apasiona el cine y la televisión, y entendemos que una gran historia no termina cuando aparecen los créditos, sino que se queda con nosotros. Somos un equipo de entusiastas del entretenimiento dedicados a conectar a los fans con sus producciones favoritas, ofreciendo las mejores ofertas y una curaduría exclusiva de películas y series. Nuestra misión principal es democratizar el acceso al arte visual, logrando que el entretenimiento sea fácil, asequible y emocionante para todos los niveles de espectadores.
+
+                Desde nuestros inicios, hemos trabajado arduamente para construir una plataforma robusta y amigable que no solo ofrezca una selección inigualable de títulos y merchandising, sino que también garantice una experiencia de compra excepcional. Creemos que cada usuario merece un servicio personalizado y eficiente, por lo que nos esforzamos día a día en innovar y expandir nuestro catálogo para convertirnos en el destino definitivo para los amantes del séptimo arte.
+                </p>
+            </section>
+        </section>
+
+        <section class="parrafos">
+           <section class="texto">
+                <h2>Nuestra Misión</h2>
+                <p>
+                    Creemos firmemente que el cine y la televisión son mucho más que simple entretenimiento; son formas poderosas de contar historias, transmitir valores y tender puentes que conectan a personas de diferentes culturas y realidades. Una gran producción tiene la capacidad de inspirarnos, educarnos y emocionarnos de maneras únicas.
+
+                    Por esta razón, en PostWatch nos esforzamos diariamente por ofrecer una selección de títulos vasta y diversa que abarque todas las épocas, desde los clásicos inmortales que definieron géneros hasta los lanzamientos más recientes y vanguardistas. Nuestro objetivo es eliminar las barreras económicas, garantizando que cada uno de nuestros usuarios pueda disfrutar de sus películas y series favoritas con la mayor calidad posible y sin que el costo sea una preocupación. Trabajamos para que el acceso a la cultura audiovisual sea un derecho compartido y no un privilegio.
+                </p>
+           </section> 
+            <img src="/img/nosotrosMR.jpg" alt="Poster">
+        </section>
+
+        <section class="parrafos">
+            <img src="/img/nosotrosSW.jpg" alt="Poster">
+            <section class="texto">
+                <h2>Nuestro Compromiso</h2>
+                <p>
+                    En PostWatch, nuestra prioridad absoluta son nuestros usuarios. Entendemos que detrás de cada compra hay un fan buscando inmortalizar una historia, y por eso nos comprometemos a brindar un servicio excepcional en cada etapa del proceso. No solo nos dedicamos a la venta; estamos aquí para asesorarte, escucharte y ayudarte a encontrar las mejores ofertas del mercado, asegurándonos de que cada pieza que llegue a tus manos cumpla con los más altos estándares de calidad.
+
+                    Nos esforzamos por crear un entorno seguro, intuitivo y cercano, diseñado para que tu experiencia de navegación y compra sea lo más fluida y agradable posible. Valoramos profundamente la confianza que depositas en nosotros, y trabajamos incansablemente para superar tus expectativas y convertirnos en tu aliado de confianza. Gracias por elegir PostWatch como tu destino de entretenimiento y por permitirnos formar parte de tu pasión por el cine y las series.
+                </p>
+            </section>
+        </section>
+
+        <section class="parrafos">
+            <section class="texto">
+                <h2>Nuestros Servicios</h2>
+                <p>
+                    En PostWatch, nos especializamos en ofrecerte una selección meticulosamente curada de pósters de alta calidad, diseñados para capturar la esencia de tus películas y series favoritas y transformarlas en arte para tus espacios. Entendemos que cada fan tiene un gusto único, por lo que contamos con una amplia gama de impresiones en diversos formatos —desde dimensiones estándar hasta medidas de gran formato— y acabados premium que incluyen papel fotográfico de alto gramaje, texturas mate antireflejantes y terminaciones satinadas de gran nitidez.
+                    
+                    Para garantizar que tu pasión llegue a tus manos sin esperas, disponemos de un sistema de envíos rápidos y seguros con cobertura a todo el país, protegiendo cada pedido para que llegue en perfectas condiciones. Además, nos mantenemos a la vanguardia de la industria: nuestro catálogo se actualiza semanalmente, incorporando de inmediato los últimos estrenos y las tendencias más recientes del mundo del entretenimiento. En PostWatch, no solo vendemos pósters, te brindamos la oportunidad de llevar el cine y la televisión a tu hogar con una calidad profesional.</p>
+            </section>
+            <img src="/img/nosotrosDC.jpg" alt="Poster">
+        </section>
+    </main>
+
+
+<!-- Footer -->
+    <footer>
+        <section class="container-footer">
+            <img class="logo-footer" src="../img/logo2.png" alt="Logo PostWatch Final (Footer)">
+            <ul>
+                <li><a href="https://www.instagram.com/">Instagram</a></li>
+                <li><a href="https://www.tiktok.com/">TikTok</a></li>
+                <li><a href="https://www.youtube.com/">Youtube</a></li>
+                <li><a href="https://www.facebook.com/">Facebook</a></li>
+            </ul>
+        </section>
+        <section class="text-footer">
+            <p>Todos los derechos reservados 2026 ©</p>
+        </section>
+    </footer>
+
+    <!-- JS -->
+    <script src="../main.js" defer></script>
+
+</body>
+</html>
